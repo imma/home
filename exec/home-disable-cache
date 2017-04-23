@@ -5,7 +5,7 @@ function main {
   source "$shome/script/profile"
   source normalize  
 
-  cd "$shome"
+  cd "$HOME"
   git grep cache.nih | grep template: | grep -v exec/ | cut -d: -f1 | uniq | runmany 'rm -f ${1%.template}'
 }
 
