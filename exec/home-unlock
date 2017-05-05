@@ -5,8 +5,8 @@ function main {
   source "$shome/script/profile"
   source normalize
   
-  local nm_key="${1:-$(cat "$(find .git-crypt -name "*$(gpg2 --card-status | grep 'Signature key' | awk '{print $(NF-1) $(NF)}')*")" | gpg)}"
-  git crypt unlock "$nm_key"
+  local nm_key="${1:-$(gpg2 --card-status | grep 'Signature key' | awk '{print $(NF-1) $(NF)}')}"
+  git crypt unlock <(cat "$(find .git-crypt -name "*${nm_key}*")" | gpg2)
 }
 
 source sub "$BASH_SOURCE" "$@"
