@@ -3,7 +3,6 @@
 function _home_profile {
   local shome="${_home_home:-"$(cd -P -- "${BASH_SOURCE%/*}/.." && pwd -P)"}"
   PATH="$shome/bin:$shome/exec:$PATH"
-  export ANSIBLE_ROLES_PATH="${ANSIBLE_ROLES_PATH:+${ANSIBLE_ROLES_PATH}:}$shome/roles"
 }
 
 _home_profile
