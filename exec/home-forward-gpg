@@ -6,6 +6,8 @@ function main {
   source normalize
   
   local pth_socket="$("$@" gpgconf --list-dir agent-socket)"
+  "$@" screen -S gpg-agent -d -m sleep 60
+  "$@" pkill gpg-agent
   "$@" rm -fv "${pth_socket}"
   "$@" -At -R "${pth_socket}":/tmp/S.forwarded 
 
