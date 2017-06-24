@@ -5,11 +5,10 @@ function main {
   source "$shome/script/profile"
   source normalize
   
+  gpg2 --card-status
   local pth_socket="$("$@" gpgconf --list-dir agent-socket)"
-  "$@" screen -S gpg-agent -d -m sleep 60
-  "$@" pkill -9 gpg-agent || true
   "$@" rm -fv "${pth_socket}"
-  "$@" -At -R "${pth_socket}":/tmp/S.forwarded 
+  "$@" -v -At -R "${pth_socket}":/tmp/S.forwarded 
 
 }
 
