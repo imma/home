@@ -8,7 +8,7 @@ function main {
   gpg2 --card-status
   local pth_socket="$("$@" gpgconf --list-dir agent-socket)"
   "$@" rm -fv "${pth_socket}"
-  "$@" -v -At -R "${pth_socket}":/tmp/S.forwarded 
+  "$@" -At -R "${pth_socket}":/tmp/S.forwarded 
 
 }
 
