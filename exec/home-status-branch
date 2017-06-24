@@ -5,9 +5,8 @@ function main {
   source "$shome/script/profile"
   source normalize
 
-  local many="${1:-10}"
-  
-  block runmany "$many" 'echo $1 $(cd $1 && home status branch)' | talign 3
+  git branch -vv | awk '$1 == "*" { $1=""; $2=""; print }'
+
 }
 
 source sub "$BASH_SOURCE" "$@"
