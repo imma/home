@@ -5,6 +5,7 @@ function main {
   source "$shome/script/profile"
   source normalize
 
+  scp ~/.aws/assume "$@":.aws/
   exec home forward gpg ssh "$@"
 }
 
