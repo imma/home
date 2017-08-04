@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+function main {
+  local shome="$(cd -P -- "${BASH_SOURCE%/*}/.." && pwd -P)"
+  source "$shome/script/profile"
+  source "$_block_home/script/profile" ''
+  source normalize
+  
+  pushd "$shome" >/dev/null
+  require
+  popd >/dev/null
+
+  local nm_org="$1"; shift
+
+  assume "$nm_org"
+  imma credentials config | ssh "$@" tee .aws/credentials.tmp
+  ssh "$@" mv -f .aws/credentials.tmp .aws/credentials
+}
+
+source sub "$BASH_SOURCE" "$@"
