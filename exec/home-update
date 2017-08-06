@@ -7,7 +7,7 @@ function main {
 
   local many="${1:-10}"
   
-  runmany "$many" 'cd $1 && git pull' work/*/
+  (set +f; runmany "$many" 'cd $1 && git pull' work/*/)
 }
 
 source sub "$BASH_SOURCE" "$@"
