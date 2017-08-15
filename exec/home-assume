@@ -12,7 +12,7 @@ function main {
 
   local nm_org="$1"; shift
 
-  imma assume "$nm_org" imma credentials config | ssh "$@" tee .aws/credentials.tmp
+  env -u AWS_VAULT imma assume "$nm_org" imma credentials config | ssh "$@" tee .aws/credentials.tmp
   ssh "$@" mv -f .aws/credentials.tmp .aws/credentials
 }
 
