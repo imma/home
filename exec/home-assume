@@ -12,8 +12,16 @@ function main {
 
   local nm_org="$1"; shift
 
+  local fl_ssh
+  if [[ "${1:-}" == "ssh" ]]; then
+    fl_ssh="#$1"; shift
+  fi
+
   env -u AWS_VAULT imma assume "$nm_org" imma credentials config | ssh "$@" tee .aws/credentials.tmp
   ssh "$@" mv -f .aws/credentials.tmp .aws/credentials
+  if [[ -n "$fl_ssh" ]]; then
+    ssh "$@"
+  fi
 }
 
 source sub "$BASH_SOURCE" "$@"
