@@ -17,7 +17,7 @@ function main {
     fl_ssh="#$1"; shift
   fi
 
-  env -u AWS_VAULT imma assume "$nm_org" imma credentials config | ssh "$@" tee .aws/credentials.tmp
+  env -u AWS_VAULT fogg assume "$nm_org" imma credentials config | ssh "$@" tee .aws/credentials.tmp
   ssh "$@" mv -f .aws/credentials.tmp .aws/credentials
   if [[ -n "$fl_ssh" ]]; then
     ssh "$@"
