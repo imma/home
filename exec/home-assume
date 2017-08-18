@@ -14,11 +14,11 @@ function main {
 
   local fl_ssh
   if [[ "${1:-}" == "ssh" ]]; then
-    fl_ssh="#$1"; shift
+    fl_ssh="$1"; shift
   fi
 
   (
-    env -u AWS_VAULT fogg assume "$nm_org" imma credentials config | ssh "$@" tee .aws/credentials.tmp | md5sum
+    env -u AWS_VAULT fogg assume "$nm_org" imma credentials config | ssh "$@" tee .aws/credentials.tmp >/dev/null
     ssh "$@" mv -f .aws/credentials.tmp .aws/credentials
   ) &
 
