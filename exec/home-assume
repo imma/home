@@ -17,11 +17,16 @@ function main {
     fl_ssh="#$1"; shift
   fi
 
-  env -u AWS_VAULT fogg assume "$nm_org" imma credentials config | ssh "$@" tee .aws/credentials.tmp
-  ssh "$@" mv -f .aws/credentials.tmp .aws/credentials
+  (
+    env -u AWS_VAULT fogg assume "$nm_org" imma credentials config | ssh "$@" tee .aws/credentials.tmp | md5sum
+    ssh "$@" mv -f .aws/credentials.tmp .aws/credentials
+  ) &
+
   if [[ -n "$fl_ssh" ]]; then
     ssh "$@"
   fi
+
+  wait
 }
 
 source sub "$BASH_SOURCE" "$@"
